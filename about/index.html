@@ -48,16 +48,15 @@
 color="122 103 238" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
 </script>
 
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/js/jquery.min.js"></script>
 <script type="text/javascript">
         /* 鼠标点击特效 - 7Core.CN */
         var a_idx = 0;jQuery(document).ready(function($) {$("body").click(function(e) {var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正" ,"法治", "爱国", "敬业", "诚信", "友善");var $i = $("<span/>").text(a[a_idx]);
         a_idx = (a_idx + 1) % a.length;var x = e.pageX,y = e.pageY;$i.css({"z-index": 100000000,"top": y - 20,"left": x,"position": "absolute","font-weight": "bold","color": "#ff6651"});$("body").append($i);$i.animate({"top": y - 180,"opacity": 0},1500,function() {$i.remove();});});});
 </script>
-<!--樱花-->
-<script src="https://cdn.jsdelivr.net/gh/TaylorLottner/Fork/sakura.js"></script>
-        
-
+<!--樱花
+<script src="https://cdn.jsdelivr.net/gh/TaylorLottner/Fork/sakura.js"></script>    
+ -->
     <header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
@@ -522,7 +521,7 @@ color="122 103 238" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"笔记","value":7},{"name":"Java","value":1},{"name":"Mybatis-Plus","value":1},{"name":"树形结构数据","value":1},{"name":"Mybatis","value":2},{"name":"TK.Mybatis","value":1},{"name":"Markdown","value":1},{"name":"文件上传漏洞","value":1},{"name":"云服务器","value":1},{"name":"Java","value":1},{"name":"小程序","value":1},{"name":"Java","value":1},{"name":"SQL","value":1},{"name":"Java","value":1},{"name":"Linux","value":1},{"name":"Vue","value":1},{"name":"定时任务","value":1},{"name":"Java","value":1},{"name":"随记","value":1},{"name":"笔记","value":1},{"name":"分页","value":1},{"name":"Excel","value":1},{"name":"Java","value":1}],
+                data: [{"name":"笔记","value":7},{"name":"Java","value":1},{"name":"Mybatis-Plus","value":1},{"name":"Mybatis","value":2},{"name":"树形结构数据","value":1},{"name":"TK.Mybatis","value":1},{"name":"文件上传漏洞","value":1},{"name":"Markdown","value":1},{"name":"云服务器","value":1},{"name":"Java","value":1},{"name":"小程序","value":1},{"name":"定时任务","value":1},{"name":"Java","value":1},{"name":"Java","value":1},{"name":"随记","value":1},{"name":"SQL","value":1},{"name":"Java","value":1},{"name":"Linux","value":1},{"name":"Vue","value":1},{"name":"笔记","value":1},{"name":"分页","value":1},{"name":"Excel","value":1},{"name":"Java","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -546,7 +545,7 @@ color="122 103 238" opacity='0.7' zIndex="-2" count="200" src="//cdn.bootcss.com
         xAxis: [
             {
                 type: 'category',
-                data: ["Java","Mybatis","Mybatis-Plus","TK.Mybatis","Markdown","Web安全","v2ray","Linux","uniapp","分页"]
+                data: ["Java","Mybatis","Mybatis-Plus","TK.Mybatis","Web安全","Markdown","v2ray","Linux","uniapp","分页"]
             }
         ],
         yAxis: [
