@@ -1,1 +1,2 @@
-在hackbg目录写完博客后，到hackbg目录打开cmd窗口，运行命令 hexo clean  和hexo g ,然后将生成的public目录下的内容复制到mycdn目录下，然后在mycdn打开cmd窗口执行git add .  和git commit -m "提交信息" 和git push,然后到GitHub的mycdn项目发布版本，最后回到heckbg的cmd创建运行hexo d 更新博客信息
+在hackbg目录写完博客后，到hackbg目录打开cmd窗口，运行命令 hexo clean  和hexo g ,然后将生成的public目录下的内容复制到mycdn目录下，然后在mycdn打开cmd窗口执行git add .  和git commit -m "提交信息" 和git push,
+然后到GitHub的mycdn项目发布版本（发布版本非必须），最后回到heckbg的cmd创建运行hexo d 更新博客信息
