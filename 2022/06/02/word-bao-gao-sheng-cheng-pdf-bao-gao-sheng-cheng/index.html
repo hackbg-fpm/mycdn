@@ -1,0 +1,1902 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="Word报告生成、报告转PDF、报告目录与内容自定义的实现, 黑客帮,HackBG,hackbg,肥胖喵博客,肥胖喵,微信公众号黑客帮,公众号黑客帮">
+    <meta name="description" content="分享知识，记录学习心得的个人博客">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>Word报告生成、报告转PDF、报告目录与内容自定义的实现 | HackBG</title>
+    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/css/my.css">
+
+    <script src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 5.1.1"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+<body>
+    <script type="text/javascript">
+    var OriginTitile = document.title,
+        st;
+    document.addEventListener("visibilitychange", function () {
+        document.hidden ? (document.title = "温故而知新", clearTimeout(st)) : (document.title = "学无止境", st = setTimeout(function () {
+                document.title = OriginTitile
+            }, 3e3))
+    })
+    </script>
+
+<!--动态线条背景-->
+<script type="text/javascript"
+color="122 103 238" opacity='0.7' zIndex="-2" count="200" src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/js/canvas-nest.min.js">
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/js/jquery.min.js"></script>
+<script type="text/javascript">
+        /* 鼠标点击特效 - 7Core.CN */
+        var a_idx = 0;jQuery(document).ready(function($) {$("body").click(function(e) {var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正" ,"法治", "爱国", "敬业", "诚信", "友善");var $i = $("<span/>").text(a[a_idx]);
+        a_idx = (a_idx + 1) % a.length;var x = e.pageX,y = e.pageY;$i.css({"z-index": 100000000,"top": y - 20,"left": x,"position": "absolute","font-weight": "bold","color": "#ff6651"});$("body").append($i);$i.animate({"top": y - 180,"opacity": 0},1500,function() {$i.remove();});});});
+</script>
+<!--樱花
+<script src="https://cdn.jsdelivr.net/gh/TaylorLottner/Fork/sakura.js"></script>    
+ -->
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/favicon.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">HackBG</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/favicon.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">HackBG</div>
+        <div class="logo-desc">
+            
+            分享知识，记录学习心得的个人博客
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+    </nav>
+
+</header>
+
+    
+<script src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/images/Word%E6%A8%A1%E6%9D%BF.png')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">Word报告生成、报告转PDF、报告目录与内容自定义的实现</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        height: calc(100vh - 250px);
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Word%E6%93%8D%E4%BD%9C/">
+                                <span class="chip bg-color">Word操作</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Word/" class="post-category">
+                                Word
+                            </a>
+                        
+                            <a href="/categories/Word/PDF/" class="post-category">
+                                PDF
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-06-02
+                </div>
+                
+
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
+                    2022-06-02
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.7k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    19 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="Word报告生成、报告转PDF、报告目录与内容自定义的实现"><a href="#Word报告生成、报告转PDF、报告目录与内容自定义的实现" class="headerlink" title="Word报告生成、报告转PDF、报告目录与内容自定义的实现"></a>Word报告生成、报告转PDF、报告目录与内容自定义的实现</h1><h2 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h2><p>注意poi-ooxml依赖的版本</p>
+<pre class=" language-xml"><code class="language-xml">        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.poi<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>poi-ooxml<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>5.2.2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token comment" spellcheck="true">&lt;!--        导出Word--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.deepoove<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>poi-tl<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.12.1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token comment" spellcheck="true">&lt;!--        Word转PDF--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>com.aspose<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>aspose-words<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>21.11<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>system<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>systemPath</span><span class="token punctuation">></span></span>${project.basedir}/src/main/resources/lib/aspose-words-21.11-jdk17.jar<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>systemPath</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token comment" spellcheck="true">&lt;!--        pdf转图片--></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.pdfbox<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>pdfbox<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.0.27<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span></code></pre>
+<h2 id="报告模板文件地址"><a href="#报告模板文件地址" class="headerlink" title="报告模板文件地址"></a>报告模板文件地址</h2><blockquote>
+<p><a href="/images/Word/%E9%A3%8E%E9%99%A9%E6%8A%A5%E5%91%8A%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E6%A8%A1%E6%9D%BF.docx">Word模板</a></p>
+</blockquote>
+<p>模板的目录和内容可以根据如下配置是否显示</p>
+<p><img src="/images/Word%E6%A8%A1%E6%9D%BF.png"></p>
+<h2 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h2><h3 id="生成报告代码"><a href="#生成报告代码" class="headerlink" title="生成报告代码"></a>生成报告代码</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> cn<span class="token punctuation">.</span>hutool<span class="token punctuation">.</span>core<span class="token punctuation">.</span>io<span class="token punctuation">.</span>FileUtil<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>fasterxml<span class="token punctuation">.</span>jackson<span class="token punctuation">.</span>core<span class="token punctuation">.</span>type<span class="token punctuation">.</span>TypeReference<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>fasterxml<span class="token punctuation">.</span>jackson<span class="token punctuation">.</span>databind<span class="token punctuation">.</span>ObjectMapper<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>ruoyi<span class="token punctuation">.</span>project<span class="token punctuation">.</span>tool<span class="token punctuation">.</span>PDFHelper<span class="token punctuation">;</span>
+<span class="token keyword">import</span> lombok<span class="token punctuation">.</span>extern<span class="token punctuation">.</span>slf4j<span class="token punctuation">.</span>Slf4j<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span>Service<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>IOException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Map<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Service</span>
+<span class="token annotation punctuation">@Slf4j</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CreditReportFileServiceImpl</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String json <span class="token operator">=</span> <span class="token string">"{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"zsxx\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"data\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"count\":0\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"rjzzq\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"data\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"count\":0\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"copyright\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"data\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"count\":0\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"entName\":\"泉州海威包袋有限公司\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"entBasic\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entHisName\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entName\":\"泉州海威包袋有限公司\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"source\":\"0\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entdeadline\":\"2016-05-30 至 2046-05-29\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"citycode\":\"惠安县\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entRegUnit\":\"泉州市工商行政管理局泉州台商投资区分局\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"lastUpdBy\":\"-\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entSocialNo\":\"91350521MA348N1GXG\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"stockcode\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entRegNo\":\"91350521MA348N1GXG\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"dataStatus\":\"01\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"regcapcur\":\"人民币\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entAddress\":\"福建省泉州台商投资区洛阳镇洛河路（三角牌）202号\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"createdDt\":1531434966000,\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entChangeTargetUid\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entFullName\":\"Quanzhou Hiway Bags Co., Ltd\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"dataSource\":\"10\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"industryphy\":\"519\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"attrib04\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"attrib03\":\"2016-05-30\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entRegAmount\":\"100 万人民币\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entNature\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entcity\":\"350521104\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entType\":\"有限责任公司（自然人投资或控股）\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"legalPersonID\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"lastUpdDt\":1702619390000,\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"industryconame\":\"皮箱、包（袋）制造\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entRegType\":\"有限责任公司（自然人投资或控股）\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"legalPerson\":\"曾汉青\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"taxNo\":\"91350521MA348N1GXG\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"companyImage\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entRealAmount\":\"-\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"dataOrg\":\"MA348N1GX\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"industryMain\":\"5199\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entScale\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entemail\":\"暂无\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"rowId\":1238506,\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entRegDt\":\"2016-05-30\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"tagList\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entphone\":\"1380590****\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"createdBy\":\"sys\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entCode\":\"350509100083633\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entRange\":\"通过互联网及实体店销售：包袋、箱包、包装制品、饰品、布艺制品、工艺品、皮具、日用百货、服装、鞋帽；自营和代理各类商品和技术的进出口，但涉及前置许可或国家限定公司经营或禁止进出口的商品和技术除外；商务信息咨询服务（不含金融、证券、期货的投资咨询）。（依法须经批准的项目，经相关部门批准后方可开展经营活动）\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entUid\":\"E797BB48381E11E68FE94A158A77B72E\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entIsChangename\":\"0\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entstatus\":\"存续\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"shortStatus\":\"存续\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entCertificate\":\"统一社会信用代码\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"businessAddress\":\"福建省泉州台商投资区洛阳镇洛河路（三角牌）202号\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"orgType\":\"企业\"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"entZSCQ\":true,\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"entXZCF\":true,\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"zlxx\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"data\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"count\":0\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"entSFSS\":true,\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"reporterDate\":\"2024-01-09\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"wzxx\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"data\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"count\":0\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"entGSXX\":true,\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"gsxx\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"entbasic\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entHisName\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entName\":\"泉州海威包袋有限公司\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"source\":\"0\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entdeadline\":\"2016-05-30 至 2046-05-29\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"citycode\":\"惠安县\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entRegUnit\":\"泉州市工商行政管理局泉州台商投资区分局\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"lastUpdBy\":\"-\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entSocialNo\":\"91350521MA348N1GXG\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"stockcode\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entRegNo\":\"91350521MA348N1GXG\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"dataStatus\":\"01\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"regcapcur\":\"人民币\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entAddress\":\"福建省泉州台商投资区洛阳镇洛河路（三角牌）202号\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"createdDt\":1531434966000,\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entChangeTargetUid\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entFullName\":\"Quanzhou Hiway Bags Co., Ltd\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"dataSource\":\"10\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"industryphy\":\"519\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"attrib04\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"attrib03\":\"2016-05-30\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entRegAmount\":\"100 万人民币\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entNature\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entcity\":\"350521104\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entType\":\"有限责任公司（自然人投资或控股）\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"legalPersonID\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"lastUpdDt\":1702619390000,\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"industryconame\":\"皮箱、包（袋）制造\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entRegType\":\"有限责任公司（自然人投资或控股）\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"legalPerson\":\"曾汉青\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"taxNo\":\"91350521MA348N1GXG\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"companyImage\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entRealAmount\":\"-\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"dataOrg\":\"MA348N1GX\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"industryMain\":\"5199\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entScale\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entemail\":\"暂无\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"rowId\":1238506,\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entRegDt\":\"2016-05-30\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"tagList\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entphone\":\"1380590****\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"createdBy\":\"sys\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entCode\":\"350509100083633\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entRange\":\"通过互联网及实体店销售：包袋、箱包、包装制品、饰品、布艺制品、工艺品、皮具、日用百货、服装、鞋帽；自营和代理各类商品和技术的进出口，但涉及前置许可或国家限定公司经营或禁止进出口的商品和技术除外；商务信息咨询服务（不含金融、证券、期货的投资咨询）。（依法须经批准的项目，经相关部门批准后方可开展经营活动）\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entUid\":\"E797BB48381E11E68FE94A158A77B72E\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entIsChangename\":\"0\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entstatus\":\"存续\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"shortStatus\":\"存续\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"entCertificate\":\"统一社会信用代码\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"businessAddress\":\"福建省泉州台商投资区洛阳镇洛河路（三角牌）202号\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            \"orgType\":\"企业\"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        }\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"xzcf\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"data\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"count\":0\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"sfxz\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"data\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"count\":0\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"ycjy\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"data\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"count\":0\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"reporterNo\":\"TT20240109093459\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"sx\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"data\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"count\":0\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"entDZY\":true,\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"cpws\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"data\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"count\":0\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"bgjl\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"data\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"count\":0\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"qydwtz\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"data\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"count\":0\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"gdxx\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"ipocount\":0,\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"data\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            {\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterCapitalDt\":\"2046-05-29\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"entName\":\"泉州海威包袋有限公司\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterRealCapi\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterType\":\"自然人股东\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterInvestName\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterCapiDate\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"entUid\":\"E797BB48381E11E68FE94A158A77B72E\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterName\":\"李跃\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterCapital\":\"25 万人民币\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterInvestType\":\"货币\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterStake\":\"25.00%\"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            {\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterCapitalDt\":\"2046-05-29\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"entName\":\"泉州海威包袋有限公司\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterRealCapi\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterType\":\"自然人股东\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterInvestName\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterCapiDate\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"entUid\":\"E797BB48381E11E68FE94A158A77B72E\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterName\":\"曾汉青\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterCapital\":\"25 万人民币\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterInvestType\":\"货币\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterStake\":\"25.00%\"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            {\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterCapitalDt\":\"2046-05-29\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"entName\":\"泉州海威包袋有限公司\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterRealCapi\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterType\":\"自然人股东\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterInvestName\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterCapiDate\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"entUid\":\"E797BB48381E11E68FE94A158A77B72E\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterName\":\"王军行\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterCapital\":\"25 万人民币\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterInvestType\":\"货币\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterStake\":\"25.00%\"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            {\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterCapitalDt\":\"2046-05-29\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"entName\":\"泉州海威包袋有限公司\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterRealCapi\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterType\":\"自然人股东\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterInvestName\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterCapiDate\":\"\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"entUid\":\"E797BB48381E11E68FE94A158A77B72E\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterName\":\"林荣平\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterCapital\":\"25 万民币\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterInvestType\":\"货币\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"promoterStake\":\"25.00%\"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            }\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"count\":4,\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"ipo\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ]\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"sxbzxr\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"data\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"count\":0\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"sbxx\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"data\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"count\":0\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"reporterRange\":\"2023年01月-2024年01月\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"ktgg\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"data\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"count\":0\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    \"zyry\":{\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"data\":[\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            {\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"isPromoter\":false,\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"entName\":\"泉州海威包袋有限公司\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"personName\":\"曾汉青\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"entUid\":\"E797BB48381E11E68FE94A158A77B72E\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"personRole\":\"经理,执行董事\"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            },\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            {\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"isPromoter\":false,\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"entName\":\"泉州海威包袋有限公司\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"personName\":\"林荣平\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"entUid\":\"E797BB48381E11E68FE94A158A77B72E\",\n"</span> <span class="token operator">+</span>
+                <span class="token string">"                \"personRole\":\"监事\"\n"</span> <span class="token operator">+</span>
+                <span class="token string">"            }\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        ],\n"</span> <span class="token operator">+</span>
+                <span class="token string">"        \"count\":2\n"</span> <span class="token operator">+</span>
+                <span class="token string">"    }\n"</span> <span class="token operator">+</span>
+                <span class="token string">"}"</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            ObjectMapper objectMapper <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ObjectMapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> map <span class="token operator">=</span> objectMapper<span class="token punctuation">.</span><span class="token function">readValue</span><span class="token punctuation">(</span>json<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">TypeReference</span><span class="token operator">&lt;</span>Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">>></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            CreditReportFileServiceImpl creditReportFileServiceImpl <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">CreditReportFileServiceImpl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            String modelSrc <span class="token operator">=</span> <span class="token string">"C:\\Users\\Administrator\\Desktop\\风险报告自定义数据模板.docx"</span><span class="token punctuation">;</span>
+            String rootPath <span class="token operator">=</span> <span class="token string">"C:\\Users\\Administrator\\Desktop\\"</span><span class="token punctuation">;</span>
+            creditReportFileServiceImpl<span class="token punctuation">.</span><span class="token function">createReport</span><span class="token punctuation">(</span>map<span class="token punctuation">,</span>null<span class="token punctuation">,</span>null<span class="token punctuation">,</span>rootPath<span class="token punctuation">,</span>modelSrc<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 使用转换后的map进行操作</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>map<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 创建Word报告和PDF报告
+     * @Author: CZM
+     * @Param: [creditReportMap, rowDataCodeList, columnDataCodeList, modelSrc]
+     */</span>
+    <span class="token keyword">public</span>  <span class="token keyword">void</span> <span class="token function">createReport</span><span class="token punctuation">(</span>Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> creditReportMap<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> rowDataCodeList<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> columnDataCodeList<span class="token punctuation">,</span>
+                              String rootPath<span class="token punctuation">,</span>String modelSrc<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">"模板文件地址："</span> <span class="token operator">+</span> modelSrc<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">boolean</span> exist <span class="token operator">=</span> FileUtil<span class="token punctuation">.</span><span class="token function">exist</span><span class="token punctuation">(</span>modelSrc<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>exist<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"报告模板不存在，请提供准确的报告模板！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">//文档存放地址</span>
+        String wordFilePath <span class="token operator">=</span> CreateCreditReportUtil<span class="token punctuation">.</span><span class="token function">downloadWord</span><span class="token punctuation">(</span>rootPath<span class="token punctuation">,</span>
+                modelSrc<span class="token punctuation">,</span>
+                creditReportMap<span class="token punctuation">,</span>
+                rowDataCodeList<span class="token punctuation">,</span>
+                columnDataCodeList
+        <span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String pdfFilePath <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">createWordToPdf</span><span class="token punctuation">(</span>wordFilePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 将word文档转换为pdf
+     * @Author: CZM
+     * @Param: [sourceSrc]
+     */</span>
+    <span class="token keyword">private</span> String <span class="token function">createWordToPdf</span><span class="token punctuation">(</span>String sourceSrc<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String pdfFilePath <span class="token operator">=</span> sourceSrc<span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token string">"docx"</span><span class="token punctuation">,</span> <span class="token string">"pdf"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        PDFHelper<span class="token punctuation">.</span><span class="token function">doc2pdfV2</span><span class="token punctuation">(</span>sourceSrc<span class="token punctuation">,</span> pdfFilePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> pdfFilePath<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="PDF转换工具类"><a href="#PDF转换工具类" class="headerlink" title="PDF转换工具类"></a>PDF转换工具类</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> com<span class="token punctuation">.</span>aspose<span class="token punctuation">.</span>words<span class="token punctuation">.</span>License<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>pdfbox<span class="token punctuation">.</span>pdmodel<span class="token punctuation">.</span>PDDocument<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>pdfbox<span class="token punctuation">.</span>rendering<span class="token punctuation">.</span>PDFRenderer<span class="token punctuation">;</span>
+
+
+<span class="token keyword">import</span> javax<span class="token punctuation">.</span>imageio<span class="token punctuation">.</span>ImageIO<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>awt<span class="token punctuation">.</span>image<span class="token punctuation">.</span>BufferedImage<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>*<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>nio<span class="token punctuation">.</span>charset<span class="token punctuation">.</span>StandardCharsets<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token keyword">static</span> com<span class="token punctuation">.</span>ruoyi<span class="token punctuation">.</span>framework<span class="token punctuation">.</span>datasource<span class="token punctuation">.</span>DynamicDataSourceContextHolder<span class="token punctuation">.</span>log<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @Classname PDFHelper
+ * @Date 2023/5/10 0010
+ */</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">PDFHelper</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        InputStream is <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        String licenseStr <span class="token operator">=</span>
+                <span class="token string">"&lt;License>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"    &lt;Data>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"        &lt;Products>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"            &lt;Product>Aspose.Total for Java&lt;/Product>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"            &lt;Product>Aspose.Words for Java&lt;/Product>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"        &lt;/Products>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"        &lt;EditionType>Enterprise&lt;/EditionType>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"        &lt;SubscriptionExpiry>20991231&lt;/SubscriptionExpiry>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"        &lt;LicenseExpiry>20991231&lt;/LicenseExpiry>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"        &lt;SerialNumber>8bfe198c-7f0c-4ef8-8ff0-acc3237bf0d7&lt;/SerialNumber>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"    &lt;/Data>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"    &lt;Signature>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"        sNLLKGMUdF0r8O1kKilWAGdgfs2BvJb/2Xp8p5iuDVfZXmhppo+d0Ran1P9TKdjV4ABwAgKXxJ3jcQTqE/2IRfqwnPf8itN8aFZlV3TJPYeD3yWE7IT55Gz6EijUpC7aKeoohTb4w2fpox58wWoF3SNp6sK6jDfiAUGEHYJ9pjU=\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"    &lt;/Signature>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"&lt;/License>"</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//            is = new FileInputStream("C:\\Users\\Administrator\\Desktop\\tool\\license.xml");</span>
+        is <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ByteArrayInputStream</span><span class="token punctuation">(</span>licenseStr<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span>StandardCharsets<span class="token punctuation">.</span>UTF_8<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        License license <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">License</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            license<span class="token punctuation">.</span><span class="token function">setLicense</span><span class="token punctuation">(</span>is<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//        FileUtil.copy("C:\\Users\\Administrator\\Desktop\\生成完整的信用报告\\202208171149.docx",</span>
+<span class="token comment" spellcheck="true">//                "C:\\Users\\Administrator\\Desktop\\生成完整的信用报告\\202208171149V2.docx",false);</span>
+<span class="token comment" spellcheck="true">//        doc2pdf("C:\\Users\\Administrator\\Desktop\\生成完整的信用报告\\企业信用报告.docx");</span>
+        <span class="token function">doc2pdfV2</span><span class="token punctuation">(</span><span class="token string">"F:\\我的文件\\谷歌.docx"</span><span class="token punctuation">,</span>
+                <span class="token string">"F:\\我的文件\\谷歌.pdf"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * word转pdf
+     * @Author: CZM
+     * @Param: [sourceFile, targetFile]
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">doc2pdfV2</span><span class="token punctuation">(</span>String sourceFile<span class="token punctuation">,</span> String targetFile<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        InputStream is <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        String licenseStr <span class="token operator">=</span>
+                <span class="token string">"&lt;License>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"    &lt;Data>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"        &lt;Products>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"            &lt;Product>Aspose.Total for Java&lt;/Product>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"            &lt;Product>Aspose.Words for Java&lt;/Product>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"        &lt;/Products>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"        &lt;EditionType>Enterprise&lt;/EditionType>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"        &lt;SubscriptionExpiry>20991231&lt;/SubscriptionExpiry>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"        &lt;LicenseExpiry>20991231&lt;/LicenseExpiry>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"        &lt;SerialNumber>8bfe198c-7f0c-4ef8-8ff0-acc3237bf0d7&lt;/SerialNumber>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"    &lt;/Data>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"    &lt;Signature>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"        sNLLKGMUdF0r8O1kKilWAGdgfs2BvJb/2Xp8p5iuDVfZXmhppo+d0Ran1P9TKdjV4ABwAgKXxJ3jcQTqE/2IRfqwnPf8itN8aFZlV3TJPYeD3yWE7IT55Gz6EijUpC7aKeoohTb4w2fpox58wWoF3SNp6sK6jDfiAUGEHYJ9pjU=\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"    &lt;/Signature>\n"</span> <span class="token operator">+</span>
+                        <span class="token string">"&lt;/License>"</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//            is = new FileInputStream("C:\\Users\\Administrator\\Desktop\\tool\\license.xml");</span>
+        is <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ByteArrayInputStream</span><span class="token punctuation">(</span>licenseStr<span class="token punctuation">.</span><span class="token function">getBytes</span><span class="token punctuation">(</span>StandardCharsets<span class="token punctuation">.</span>UTF_8<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        License license <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">License</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            license<span class="token punctuation">.</span><span class="token function">setLicense</span><span class="token punctuation">(</span>is<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token keyword">long</span> old <span class="token operator">=</span> System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            FileOutputStream os <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileOutputStream</span><span class="token punctuation">(</span>targetFile<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            com<span class="token punctuation">.</span>aspose<span class="token punctuation">.</span>words<span class="token punctuation">.</span>Document doc <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">com<span class="token punctuation">.</span>aspose<span class="token punctuation">.</span>words<span class="token punctuation">.</span>Document</span><span class="token punctuation">(</span>sourceFile<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            doc<span class="token punctuation">.</span><span class="token function">save</span><span class="token punctuation">(</span>os<span class="token punctuation">,</span> com<span class="token punctuation">.</span>aspose<span class="token punctuation">.</span>words<span class="token punctuation">.</span>SaveFormat<span class="token punctuation">.</span>PDF<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            os<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">long</span> now <span class="token operator">=</span> System<span class="token punctuation">.</span><span class="token function">currentTimeMillis</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"共耗时："</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>now <span class="token operator">-</span> old<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1000.0</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"秒"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//转化用时</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            log<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">"word转pdf 报告生成异常"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"报告生成失败！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">//pdf转图片</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">pdf2Image</span><span class="token punctuation">(</span>String sourceFile<span class="token punctuation">,</span> String targetFile<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        File file <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span>sourceFile<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        PDDocument pdDocument<span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+
+            pdDocument <span class="token operator">=</span> PDDocument<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>file<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            PDFRenderer renderer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">PDFRenderer</span><span class="token punctuation">(</span>pdDocument<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">/* dpi越大转换后越清晰，相对转换速度越慢 */</span>
+            File dstFile <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span>targetFile<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            BufferedImage image <span class="token operator">=</span> renderer<span class="token punctuation">.</span><span class="token function">renderImageWithDPI</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">300</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            ImageIO<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>image<span class="token punctuation">,</span> <span class="token string">"png"</span><span class="token punctuation">,</span> dstFile<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"PDF文档转PNG图片成功！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IOException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">//html转换PDF等更多PDF操作可看itextpdf</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="填充Word内容"><a href="#填充Word内容" class="headerlink" title="填充Word内容"></a>填充Word内容</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> cn<span class="token punctuation">.</span>hutool<span class="token punctuation">.</span>core<span class="token punctuation">.</span>collection<span class="token punctuation">.</span>CollectionUtil<span class="token punctuation">;</span>
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>hutool<span class="token punctuation">.</span>core<span class="token punctuation">.</span>date<span class="token punctuation">.</span>DateUtil<span class="token punctuation">;</span>
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>hutool<span class="token punctuation">.</span>core<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>UUID<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>XWPFTemplate<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>config<span class="token punctuation">.</span>Configure<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>config<span class="token punctuation">.</span>ConfigureBuilder<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>plugin<span class="token punctuation">.</span>table<span class="token punctuation">.</span>LoopRowTableRenderPolicy<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>plugin<span class="token punctuation">.</span>table<span class="token punctuation">.</span>MultipleRowTableRenderPolicy<span class="token punctuation">;</span>
+
+
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>io<span class="token punctuation">.</span>File<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Date<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Map<span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CreateCreditReportUtil</span> <span class="token punctuation">{</span>
+
+
+    <span class="token comment" spellcheck="true">/**
+     * 生成word 文档报告
+     *
+     * @param rootPath           文件保存目录
+     * @param templatePath       模板文件地址
+     * @param rowDataCodeList    行数据项
+     * @param columnDataCodeList 列数据项
+     * @param paramMap           报告生成的Map数据项
+     * @return 返回报告生成的保存地址
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> String <span class="token function">downloadWord</span><span class="token punctuation">(</span>String rootPath<span class="token punctuation">,</span> String templatePath<span class="token punctuation">,</span> Map<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> paramMap
+            <span class="token punctuation">,</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> rowDataCodeList<span class="token punctuation">,</span> List<span class="token operator">&lt;</span>String<span class="token operator">></span> columnDataCodeList<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String fileTimestamp <span class="token operator">=</span> DateUtil<span class="token punctuation">.</span><span class="token function">format</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"yyyyMMddHHmmss"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 生成的word格式</span>
+        String formatSuffix <span class="token operator">=</span> <span class="token string">".docx"</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 拼接后的文件名</span>
+        String fileName <span class="token operator">=</span> fileTimestamp <span class="token operator">+</span> UUID<span class="token punctuation">.</span><span class="token function">fastUUID</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> formatSuffix<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//        //设置生成的文件存放路径，可以存放在你想要指定的路径里面</span>
+<span class="token comment" spellcheck="true">//        String rootPath="C:\\Users\\Administrator\\Desktop\\测试信用报告生成\\word\\";</span>
+<span class="token comment" spellcheck="true">//         rootPath="C:\\Users\\Administrator\\Desktop\\";</span>
+
+        String filePath <span class="token operator">=</span> rootPath <span class="token operator">+</span> fileName<span class="token punctuation">;</span>
+        File reportFile <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">File</span><span class="token punctuation">(</span>filePath<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//判断目标文件所在目录是否存在</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>reportFile<span class="token punctuation">.</span><span class="token function">getParentFile</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">exists</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//如果目标文件所在的目录不存在，则创建父目录</span>
+            reportFile<span class="token punctuation">.</span><span class="token function">getParentFile</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">mkdirs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">//渲染表格  动态行</span>
+        ConfigureBuilder builder <span class="token operator">=</span> Configure<span class="token punctuation">.</span><span class="token function">builder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Configure config<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>CollectionUtil<span class="token punctuation">.</span><span class="token function">isNotEmpty</span><span class="token punctuation">(</span>rowDataCodeList<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            HackLoopTableHtmlTextRenderPolicy policy <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HackLoopTableHtmlTextRenderPolicy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            rowDataCodeList<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>x <span class="token operator">-</span><span class="token operator">></span> builder<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> policy<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>CollectionUtil<span class="token punctuation">.</span><span class="token function">isNotEmpty</span><span class="token punctuation">(</span>columnDataCodeList<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+            MultipleRowTableRenderPolicy multipleRowTableRenderPolicy <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MultipleRowTableRenderPolicy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            columnDataCodeList<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>x <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+                builder<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> multipleRowTableRenderPolicy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>CollectionUtil<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>rowDataCodeList<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> CollectionUtil<span class="token punctuation">.</span><span class="token function">isEmpty</span><span class="token punctuation">(</span>columnDataCodeList<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            ConfigureBuilder configureBuilder <span class="token operator">=</span> <span class="token function">initConfig</span><span class="token punctuation">(</span>builder<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            config <span class="token operator">=</span> configureBuilder<span class="token punctuation">.</span><span class="token function">useSpringEL</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            config <span class="token operator">=</span> builder<span class="token punctuation">.</span><span class="token function">useSpringEL</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span>
+                    <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token comment" spellcheck="true">// 读取模板templatePath并将paramMap的内容填充进模板，即编辑模板(compile)+渲染数据(render)</span>
+        XWPFTemplate template <span class="token operator">=</span> XWPFTemplate<span class="token punctuation">.</span><span class="token function">compile</span><span class="token punctuation">(</span>templatePath<span class="token punctuation">,</span> config<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">render</span><span class="token punctuation">(</span>paramMap<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//out = new FileOutputStream(filePath);//输出路径(下载到指定路径)</span>
+            <span class="token comment" spellcheck="true">// 将填充之后的模板写入filePath</span>
+            template<span class="token punctuation">.</span><span class="token function">writeToFile</span><span class="token punctuation">(</span>filePath<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//将template写到OutputStream中</span>
+            template<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span> filePath<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            e<span class="token punctuation">.</span><span class="token function">printStackTrace</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RuntimeException</span><span class="token punctuation">(</span><span class="token string">"生成报告失败！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token comment" spellcheck="true">/**
+     * 初始化要渲染的数据
+     * @Author: CZM
+     * @Param: [builder]
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> ConfigureBuilder <span class="token function">initConfig</span><span class="token punctuation">(</span>ConfigureBuilder builder<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        MultipleRowTableRenderPolicy policy <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MultipleRowTableRenderPolicy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        LoopRowTableRenderPolicy loopPolicy <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">LoopRowTableRenderPolicy</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        builder
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"syjzfxpc.qlqy"</span><span class="token punctuation">,</span> policy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"xxzsxhy.professional.professional"</span><span class="token punctuation">,</span> policy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"wffxpc.fmjl.saqkfxpc.jsonArray"</span><span class="token punctuation">,</span> policy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"gdxx.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"zyry.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"qydwtz.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"fzjg.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"bgjl.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"zwrzList.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"sxbzxr.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"sx.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"ktgg.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"pledge.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"xzcf.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"xzxk.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"swxy.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"tender.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"zpxx.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"jckxy.data"</span><span class="token punctuation">,</span> policy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"hbcf.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"gsrzxx.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"zyry.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"sbxx.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"zlxx.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"zsxx.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"copyright.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"rjzzq.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"wzxx.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"wxgzh.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"cpws.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"fygg.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"sfpm.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"drfddbr.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"dwtz.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"xzgxf.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"sjkzr.Names"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"sswf.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"tcdy.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"qsxx.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"tddy.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"dbxx.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"jyzxxx.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"bond.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"zbaj.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"xzgxf.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"sfaj.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"ycjy.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"check.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"jyzxxx.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"qsxx.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token string">"sfxz.data"</span><span class="token punctuation">,</span> loopPolicy<span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">useSpringEL</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setValidErrorHandler</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">HyphenHandler</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                <span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> builder<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h3 id="Word表格中循环插入数据"><a href="#Word表格中循环插入数据" class="headerlink" title="Word表格中循环插入数据"></a>Word表格中循环插入数据</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> cn<span class="token punctuation">.</span>hutool<span class="token punctuation">.</span>core<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ObjectUtil<span class="token punctuation">;</span>
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>hutool<span class="token punctuation">.</span>core<span class="token punctuation">.</span>util<span class="token punctuation">.</span>StrUtil<span class="token punctuation">;</span>
+<span class="token keyword">import</span> cn<span class="token punctuation">.</span>hutool<span class="token punctuation">.</span>http<span class="token punctuation">.</span>HtmlUtil<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>alibaba<span class="token punctuation">.</span>fastjson<span class="token punctuation">.</span>JSONObject<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>XWPFTemplate<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>exception<span class="token punctuation">.</span>RenderException<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>policy<span class="token punctuation">.</span>RenderPolicy<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>render<span class="token punctuation">.</span>compute<span class="token punctuation">.</span>RenderDataCompute<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>render<span class="token punctuation">.</span>processor<span class="token punctuation">.</span>DocumentProcessor<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>resolver<span class="token punctuation">.</span>TemplateResolver<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>template<span class="token punctuation">.</span>ElementTemplate<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>template<span class="token punctuation">.</span>MetaTemplate<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>template<span class="token punctuation">.</span>run<span class="token punctuation">.</span>RunTemplate<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ReflectionUtils<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>util<span class="token punctuation">.</span>TableTools<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>xwpf<span class="token punctuation">.</span>usermodel<span class="token punctuation">.</span>*<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>xmlbeans<span class="token punctuation">.</span>XmlCursor<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>xmlbeans<span class="token punctuation">.</span>XmlObject<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>openxmlformats<span class="token punctuation">.</span>schemas<span class="token punctuation">.</span>wordprocessingml<span class="token punctuation">.</span>x2006<span class="token punctuation">.</span>main<span class="token punctuation">.</span>*<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Iterator<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>List<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Map<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Set<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 在Word文档中的表格中循环插入数据
+ * @Author: CZM
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HackLoopTableHtmlTextRenderPolicy</span>  <span class="token keyword">implements</span> <span class="token class-name">RenderPolicy</span> <span class="token punctuation">{</span>
+
+
+    <span class="token keyword">private</span> String prefix<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> String suffix<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> onSameLine<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token function">HackLoopTableHtmlTextRenderPolicy</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token function">HackLoopTableHtmlTextRenderPolicy</span><span class="token punctuation">(</span><span class="token keyword">boolean</span> onSameLine<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">(</span><span class="token string">"["</span><span class="token punctuation">,</span> <span class="token string">"]"</span><span class="token punctuation">,</span> onSameLine<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token function">HackLoopTableHtmlTextRenderPolicy</span><span class="token punctuation">(</span>String prefix<span class="token punctuation">,</span> String suffix<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">(</span>prefix<span class="token punctuation">,</span> suffix<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token function">HackLoopTableHtmlTextRenderPolicy</span><span class="token punctuation">(</span>String prefix<span class="token punctuation">,</span> String suffix<span class="token punctuation">,</span> <span class="token keyword">boolean</span> onSameLine<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>prefix <span class="token operator">=</span> prefix<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>suffix <span class="token operator">=</span> suffix<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>onSameLine <span class="token operator">=</span> onSameLine<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">render</span><span class="token punctuation">(</span>ElementTemplate eleTemplate<span class="token punctuation">,</span> Object data<span class="token punctuation">,</span> XWPFTemplate template<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        RunTemplate runTemplate <span class="token operator">=</span> <span class="token punctuation">(</span>RunTemplate<span class="token punctuation">)</span> eleTemplate<span class="token punctuation">;</span>
+        XWPFRun run <span class="token operator">=</span> runTemplate<span class="token punctuation">.</span><span class="token function">getRun</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>TableTools<span class="token punctuation">.</span><span class="token function">isInsideTable</span><span class="token punctuation">(</span>run<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">IllegalStateException</span><span class="token punctuation">(</span>
+                        <span class="token string">"The template tag "</span> <span class="token operator">+</span> runTemplate<span class="token punctuation">.</span><span class="token function">getSource</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" must be inside a table"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            XWPFTableCell tagCell <span class="token operator">=</span> <span class="token punctuation">(</span>XWPFTableCell<span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>XWPFParagraph<span class="token punctuation">)</span> run<span class="token punctuation">.</span><span class="token function">getParent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getBody</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            XWPFTable table <span class="token operator">=</span> tagCell<span class="token punctuation">.</span><span class="token function">getTableRow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            run<span class="token punctuation">.</span><span class="token function">setText</span><span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            CTFonts font <span class="token operator">=</span> run<span class="token punctuation">.</span><span class="token function">getCTR</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addNewRPr</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addNewRFonts</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            font<span class="token punctuation">.</span><span class="token function">setEastAsia</span><span class="token punctuation">(</span><span class="token string">"黑体"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            font<span class="token punctuation">.</span><span class="token function">setAscii</span><span class="token punctuation">(</span><span class="token string">"仿宋"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> templateRowIndex <span class="token operator">=</span> <span class="token function">getTemplateRowIndex</span><span class="token punctuation">(</span>tagCell<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>null <span class="token operator">!=</span> data <span class="token operator">&amp;&amp;</span> data <span class="token keyword">instanceof</span> <span class="token class-name">Iterable</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                Iterator<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> iterator <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>Iterable<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span><span class="token punctuation">)</span> data<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">iterator</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                XWPFTableRow templateRow <span class="token operator">=</span> table<span class="token punctuation">.</span><span class="token function">getRow</span><span class="token punctuation">(</span>templateRowIndex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">int</span> insertPosition <span class="token operator">=</span> templateRowIndex<span class="token punctuation">;</span>
+
+                TemplateResolver resolver <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TemplateResolver</span><span class="token punctuation">(</span>template<span class="token punctuation">.</span><span class="token function">getConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">copy</span><span class="token punctuation">(</span>prefix<span class="token punctuation">,</span> suffix<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token keyword">boolean</span> firstFlag <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+                <span class="token keyword">while</span> <span class="token punctuation">(</span>iterator<span class="token punctuation">.</span><span class="token function">hasNext</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    insertPosition <span class="token operator">=</span> templateRowIndex<span class="token operator">++</span><span class="token punctuation">;</span>
+                    XWPFTableRow nextRow <span class="token operator">=</span> table<span class="token punctuation">.</span><span class="token function">insertNewTableRow</span><span class="token punctuation">(</span>insertPosition<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token function">setTableRow</span><span class="token punctuation">(</span>table<span class="token punctuation">,</span> templateRow<span class="token punctuation">,</span> insertPosition<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+                    <span class="token comment" spellcheck="true">// double set row</span>
+                    XmlCursor newCursor <span class="token operator">=</span> templateRow<span class="token punctuation">.</span><span class="token function">getCtRow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">newCursor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    newCursor<span class="token punctuation">.</span><span class="token function">toPrevSibling</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    XmlObject object <span class="token operator">=</span> newCursor<span class="token punctuation">.</span><span class="token function">getObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    nextRow <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">XWPFTableRow</span><span class="token punctuation">(</span><span class="token punctuation">(</span>CTRow<span class="token punctuation">)</span> object<span class="token punctuation">,</span> table<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>firstFlag<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                        <span class="token comment" spellcheck="true">// update VMerge cells for non-first row</span>
+                        List<span class="token operator">&lt;</span>XWPFTableCell<span class="token operator">></span> tableCells <span class="token operator">=</span> nextRow<span class="token punctuation">.</span><span class="token function">getTableCells</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">for</span> <span class="token punctuation">(</span>XWPFTableCell cell <span class="token operator">:</span> tableCells<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            CTTcPr tcPr <span class="token operator">=</span> TableTools<span class="token punctuation">.</span><span class="token function">getTcPr</span><span class="token punctuation">(</span>cell<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            CTVMerge vMerge <span class="token operator">=</span> tcPr<span class="token punctuation">.</span><span class="token function">getVMerge</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token keyword">if</span> <span class="token punctuation">(</span>null <span class="token operator">==</span> vMerge<span class="token punctuation">)</span> <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                            <span class="token keyword">if</span> <span class="token punctuation">(</span>STMerge<span class="token punctuation">.</span>RESTART <span class="token operator">==</span> vMerge<span class="token punctuation">.</span><span class="token function">getVal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                                vMerge<span class="token punctuation">.</span><span class="token function">setVal</span><span class="token punctuation">(</span>STMerge<span class="token punctuation">.</span>CONTINUE<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                        firstFlag <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                    <span class="token function">setTableRow</span><span class="token punctuation">(</span>table<span class="token punctuation">,</span> nextRow<span class="token punctuation">,</span> insertPosition<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    Object next <span class="token operator">=</span> iterator<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    RenderDataCompute dataCompute<span class="token punctuation">;</span>
+                    <span class="token keyword">if</span> <span class="token punctuation">(</span>ObjectUtil<span class="token punctuation">.</span><span class="token function">isNotNull</span><span class="token punctuation">(</span>next<span class="token punctuation">)</span><span class="token operator">&amp;&amp;</span>next <span class="token keyword">instanceof</span> <span class="token class-name">JSONObject</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                        JSONObject pendingData <span class="token operator">=</span> <span class="token punctuation">(</span>JSONObject<span class="token punctuation">)</span> next<span class="token punctuation">;</span>
+                        Set<span class="token operator">&lt;</span>String<span class="token operator">></span> keySet <span class="token operator">=</span> pendingData<span class="token punctuation">.</span><span class="token function">keySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        keySet<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>x<span class="token operator">-</span><span class="token operator">></span><span class="token punctuation">{</span>
+                            <span class="token keyword">if</span> <span class="token punctuation">(</span>StrUtil<span class="token punctuation">.</span><span class="token function">isNotBlank</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                                pendingData<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> HtmlUtil<span class="token punctuation">.</span><span class="token function">cleanHtmlTag</span><span class="token punctuation">(</span>pendingData<span class="token punctuation">.</span><span class="token function">getString</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        dataCompute <span class="token operator">=</span> template<span class="token punctuation">.</span><span class="token function">getConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getRenderDataComputeFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                                <span class="token punctuation">.</span><span class="token function">newCompute</span><span class="token punctuation">(</span>pendingData<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>ObjectUtil<span class="token punctuation">.</span><span class="token function">isNotNull</span><span class="token punctuation">(</span>next<span class="token punctuation">)</span><span class="token operator">&amp;&amp;</span>next <span class="token keyword">instanceof</span> <span class="token class-name">Map</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                        Map map <span class="token operator">=</span> <span class="token punctuation">(</span>Map<span class="token punctuation">)</span> next<span class="token punctuation">;</span>
+                        Set keySet <span class="token operator">=</span> map<span class="token punctuation">.</span><span class="token function">keySet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        keySet<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>x<span class="token operator">-</span><span class="token operator">></span><span class="token punctuation">{</span>
+                            <span class="token keyword">if</span> <span class="token punctuation">(</span>ObjectUtil<span class="token punctuation">.</span><span class="token function">isNotNull</span><span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                                map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>HtmlUtil<span class="token punctuation">.</span><span class="token function">cleanHtmlTag</span><span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+                                map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                            <span class="token punctuation">}</span>
+                        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        dataCompute <span class="token operator">=</span> template<span class="token punctuation">.</span><span class="token function">getConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getRenderDataComputeFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                                <span class="token punctuation">.</span><span class="token function">newCompute</span><span class="token punctuation">(</span>map<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token punctuation">{</span>
+                        dataCompute <span class="token operator">=</span> template<span class="token punctuation">.</span><span class="token function">getConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getRenderDataComputeFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                                <span class="token punctuation">.</span><span class="token function">newCompute</span><span class="token punctuation">(</span>next<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                    List<span class="token operator">&lt;</span>XWPFTableCell<span class="token operator">></span> cells <span class="token operator">=</span> nextRow<span class="token punctuation">.</span><span class="token function">getTableCells</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    cells<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>cell <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span>
+                        List<span class="token operator">&lt;</span>MetaTemplate<span class="token operator">></span> templates <span class="token operator">=</span> resolver<span class="token punctuation">.</span><span class="token function">resolveBodyElements</span><span class="token punctuation">(</span>cell<span class="token punctuation">.</span><span class="token function">getBodyElements</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token keyword">new</span> <span class="token class-name">DocumentProcessor</span><span class="token punctuation">(</span>template<span class="token punctuation">,</span> resolver<span class="token punctuation">,</span> dataCompute<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">process</span><span class="token punctuation">(</span>templates<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+
+            table<span class="token punctuation">.</span><span class="token function">removeRow</span><span class="token punctuation">(</span>templateRowIndex<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">afterloop</span><span class="token punctuation">(</span>table<span class="token punctuation">,</span> data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">RenderException</span><span class="token punctuation">(</span><span class="token string">"HackLoopTable for "</span> <span class="token operator">+</span> eleTemplate <span class="token operator">+</span> <span class="token string">"error: "</span> <span class="token operator">+</span> e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">getTemplateRowIndex</span><span class="token punctuation">(</span>XWPFTableCell tagCell<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        XWPFTableRow tagRow <span class="token operator">=</span> tagCell<span class="token punctuation">.</span><span class="token function">getTableRow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> onSameLine <span class="token operator">?</span> <span class="token function">getRowIndex</span><span class="token punctuation">(</span>tagRow<span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token punctuation">(</span><span class="token function">getRowIndex</span><span class="token punctuation">(</span>tagRow<span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">afterloop</span><span class="token punctuation">(</span>XWPFTable table<span class="token punctuation">,</span> Object data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@SuppressWarnings</span><span class="token punctuation">(</span><span class="token string">"unchecked"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">setTableRow</span><span class="token punctuation">(</span>XWPFTable table<span class="token punctuation">,</span> XWPFTableRow templateRow<span class="token punctuation">,</span> <span class="token keyword">int</span> pos<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        List<span class="token operator">&lt;</span>XWPFTableRow<span class="token operator">></span> rows <span class="token operator">=</span> <span class="token punctuation">(</span>List<span class="token operator">&lt;</span>XWPFTableRow<span class="token operator">></span><span class="token punctuation">)</span> ReflectionUtils<span class="token punctuation">.</span><span class="token function">getValue</span><span class="token punctuation">(</span><span class="token string">"tableRows"</span><span class="token punctuation">,</span> table<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        rows<span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>pos<span class="token punctuation">,</span> templateRow<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        table<span class="token punctuation">.</span><span class="token function">getCTTbl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setTrArray</span><span class="token punctuation">(</span>pos<span class="token punctuation">,</span> templateRow<span class="token punctuation">.</span><span class="token function">getCtRow</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">int</span> <span class="token function">getRowIndex</span><span class="token punctuation">(</span>XWPFTableRow row<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        List<span class="token operator">&lt;</span>XWPFTableRow<span class="token operator">></span> rows <span class="token operator">=</span> row<span class="token punctuation">.</span><span class="token function">getTable</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getRows</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> rows<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>row<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h3 id="处理文档中的连字符错误"><a href="#处理文档中的连字符错误" class="headerlink" title="处理文档中的连字符错误"></a>处理文档中的连字符错误</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>config<span class="token punctuation">.</span>Configure<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>render<span class="token punctuation">.</span>RenderContext<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>util<span class="token punctuation">.</span>ParagraphUtils<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>xwpf<span class="token punctuation">.</span>BodyContainer<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>deepoove<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>xwpf<span class="token punctuation">.</span>BodyContainerFactory<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>xwpf<span class="token punctuation">.</span>usermodel<span class="token punctuation">.</span>IRunBody<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>xwpf<span class="token punctuation">.</span>usermodel<span class="token punctuation">.</span>XWPFParagraph<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>poi<span class="token punctuation">.</span>xwpf<span class="token punctuation">.</span>usermodel<span class="token punctuation">.</span>XWPFRun<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 处理文档中的连字符错误
+ * @Author: CZM
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">HyphenHandler</span> <span class="token keyword">implements</span> <span class="token class-name">Configure<span class="token punctuation">.</span>ValidErrorHandler</span> <span class="token punctuation">{</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">handler</span><span class="token punctuation">(</span>RenderContext<span class="token operator">&lt;</span><span class="token operator">?</span><span class="token operator">></span> context<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        XWPFRun run <span class="token operator">=</span> context<span class="token punctuation">.</span><span class="token function">getRun</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        BodyContainer bodyContainer <span class="token operator">=</span> BodyContainerFactory<span class="token punctuation">.</span><span class="token function">getBodyContainer</span><span class="token punctuation">(</span>run<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        IRunBody parent <span class="token operator">=</span> run<span class="token punctuation">.</span><span class="token function">getParent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        run<span class="token punctuation">.</span><span class="token function">setText</span><span class="token punctuation">(</span><span class="token string">"-"</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>parent <span class="token keyword">instanceof</span> <span class="token class-name">XWPFParagraph</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            String paragraphText <span class="token operator">=</span> ParagraphUtils<span class="token punctuation">.</span><span class="token function">trimLine</span><span class="token punctuation">(</span><span class="token punctuation">(</span>XWPFParagraph<span class="token punctuation">)</span> parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">boolean</span> havePictures
+                    <span class="token operator">=</span> ParagraphUtils<span class="token punctuation">.</span><span class="token function">havePictures</span><span class="token punctuation">(</span><span class="token punctuation">(</span>XWPFParagraph<span class="token punctuation">)</span> parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">boolean</span> havePageBreak <span class="token operator">=</span> ParagraphUtils<span class="token punctuation">.</span><span class="token function">havePageBreak</span><span class="token punctuation">(</span><span class="token punctuation">(</span>XWPFParagraph<span class="token punctuation">)</span> parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">boolean</span> have0bject <span class="token operator">=</span> ParagraphUtils<span class="token punctuation">.</span><span class="token function">haveObject</span><span class="token punctuation">(</span><span class="token punctuation">(</span>XWPFParagraph<span class="token punctuation">)</span> parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">""</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>paragraphText<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>havePictures <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>havePageBreak <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>have0bject<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">int</span> pos <span class="token operator">=</span> bodyContainer<span class="token punctuation">.</span><span class="token function">getPosOfParagraph</span><span class="token punctuation">(</span><span class="token punctuation">(</span>XWPFParagraph<span class="token punctuation">)</span> parent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                bodyContainer<span class="token punctuation">.</span><span class="token function">removeBodyElement</span><span class="token punctuation">(</span>pos<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">肥胖喵</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://hackbg-fpm.github.io/2022/06/02/word-bao-gao-sheng-cheng-pdf-bao-gao-sheng-cheng/">https://hackbg-fpm.github.io/2022/06/02/word-bao-gao-sheng-cheng-pdf-bao-gao-sheng-cheng/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">肥胖喵</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/Word%E6%93%8D%E4%BD%9C/">
+                                    <span class="chip bg-color">Word操作</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">您的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/06/03/word-he-pdf-dao-chu-httpservletresponse/">
+                    <div class="card-image">
+                        
+                        <img src="/images/Word%E5%92%8CPDF%E5%AF%BC%E5%87%BA.png" class="responsive-img" alt="Word和PDF导出">
+                        
+                        <span class="card-title">Word和PDF导出</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Word和PDF导出
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-06-03
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Word/" class="post-category">
+                                    Word
+                                </a>
+                            
+                            <a href="/categories/Word/PDF/" class="post-category">
+                                    PDF
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Word%E6%93%8D%E4%BD%9C/">
+                        <span class="chip bg-color">Word操作</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/06/01/word-zhuan-pdf/">
+                    <div class="card-image">
+                        
+                        <img src="/images/Word%E8%BD%ACPDF.png" class="responsive-img" alt="Word转PDF">
+                        
+                        <span class="card-title">Word转PDF</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Word转PDF
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-06-01
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Word/" class="post-category">
+                                    Word
+                                </a>
+                            
+                            <a href="/categories/Word/PDF/" class="post-category">
+                                    PDF
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Word%E6%93%8D%E4%BD%9C/">
+                        <span class="chip bg-color">Word操作</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/codeBlock/codeShrink.js"></script>
+
+
+<!-- 代码块折行 -->
+
+<style type="text/css">
+code[class*="language-"], pre[class*="language-"] { white-space: pre !important; }
+</style>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            <span id="year">2021</span>
+            <a href="/about" target="_blank">肥胖喵</a>
+            |&nbsp;微信公众号：黑客帮&nbsp;
+            <span id="sitetime"></span><br>
+            
+            &nbsp;<i class="fas fa-chart-area"></i>&nbsp;站点总字数:&nbsp;<span
+                class="white-color">36.2k</span>&nbsp;字
+            
+            
+            
+            
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link ">
+
+
+
+    <a href="https://blog.csdn.net/qq_43681532" class="tooltipped" target="_blank" data-tooltip="关注我的CSDN: https://blog.csdn.net/qq_43681532" data-position="top" data-delay="50">
+        <i class="fab fa-csdn">C</i>
+    </a>
+
+
+
+
+
+    <a href="mailto:hackbg@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=2323457299" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 2323457299" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+<script language = javascript >
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+        var t1 = Date.UTC(2021, 02, 22, 00, 00, 00); //北京时间2021-2-22 00:00:00 
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond); 
+        var diff = t2 - t1; var diffYears = Math.floor(diff / years); 
+        var diffDays = Math.floor((diff / days) - diffYears * 365); 
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours); 
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes); 
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes * minutes) / seconds); document.getElementById("sitetime").innerHTML = "本站已运行 " +diffYears+" 年 "+diffDays + " 天 " + diffHours + " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒"; 
+    } 
+	siteTime(); 
+</script>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/search.xml", 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/materialize/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/aos/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/gh/hackbg-fpm/mycdn/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
